@@ -1,5 +1,9 @@
 # netco 协程库
 
+## 参考
+
+@YukangLiu https://github.com/YukangLiu/netco
+
 ## ucontext 组件
 
 在类 System V 环境中,在头文件 `< ucontext.h >`  中定义了两个结构类型 `mcontext_t` 和 `ucontext_t` 和四个函数`getcontext(), setcontext(), makecontext(), swapcontext()` 利用它们可以在一个进程中实现用户级的线程切换。
@@ -58,6 +62,9 @@ int swapcontext(ucontext_t *oucp, ucontext_t *ucp);
 如果执行失败，`getcontext, setcontext, swapcontext` 返回-1，并设置对应的errno.
 
 ## netco 框架
+
+![截屏2022-07-12 15.50.44](cpp_co网络协程库.assets/截屏2022-07-12 15.50.44.png)
+
 ### context
 
 context 类封装了 ucontext 上下文切换的操作，其他需要使用上下文切换的地方都使用 context 类，目的是将来想使用其他库的上下文切换方法是，只需要实现该类中的方法即可，主要实现了四个方法。
@@ -152,7 +159,11 @@ RWMutex 是用于协程同步的读写锁，读锁互相不互斥而与写锁互
 ## 运行
 
 ```shell
-mkdir build && cd build
+mkdir bulid && cd bulid
 cmake ..
 make
 ```
+
+## example
+
+编译后在 bin 文件夹下，可以直接运行
