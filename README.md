@@ -152,7 +152,7 @@ RWMutex 是用于协程同步的读写锁，读锁互相不互斥而与写锁互
 ## 运行
 
 ```shell
-mkdir bulid && cd bulid
+mkdir build && cd build
 cmake ..
 make
 ```
