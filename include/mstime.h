@@ -5,7 +5,7 @@
 
 struct timespec;
 
-namespace netco {
+namespace tinyco {
 
 //非闰，一年每个月天数
 const char days[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
@@ -68,4 +68,4 @@ inline bool operator==(Time lhs, Time rhs) {
   return lhs.getTimeVal() == rhs.getTimeVal();
 }
 
-}  // namespace netco
+}

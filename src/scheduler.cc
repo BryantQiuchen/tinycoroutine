@@ -3,7 +3,7 @@
 
 #include <sys/sysinfo.h>
 
-using namespace netco;
+using namespace tinyco;
 
 Scheduler* Scheduler::pScher_ = nullptr;
 std::mutex Scheduler::scherMtx_;

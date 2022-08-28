@@ -3,7 +3,7 @@
 
 #include "../include/processor.h"
 
-using namespace netco;
+using namespace tinyco;
 
 Processor* ProcessorSelector::next() {
   int n = static_cast<int>(processors_.size());

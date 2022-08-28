@@ -4,7 +4,7 @@
 #include "../include/parameter.h"
 #include "../include/processor.h"
 
-using namespace netco;
+using namespace tinyco;
 
 static void coWrapFunc(Processor* pP) {
   pP->getCurRunningCo()->startFunc();

@@ -7,7 +7,7 @@
 
 struct epoll_event;
 
-namespace netco {
+namespace tinyco {
 class Coroutine;
 
 class Epoller {
@@ -41,4 +41,4 @@ class Epoller {
   std::vector<struct epoll_event> activeEpollEvents_;
 };
 
-}  // namespace netco
+}  // namespace tinyco

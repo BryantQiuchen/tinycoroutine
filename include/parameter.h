@@ -2,7 +2,7 @@
 #pragma once
 #include <stddef.h>
 
-namespace netco {
+namespace tinyco {
 namespace parameter {
 //协程栈大小
 const static size_t coroutineStackSize = 32 * 1024;
@@ -20,4 +20,4 @@ constexpr static unsigned backLog = 4096;
 static constexpr size_t memPoolMallocObjCnt = 40;
 }  // namespace parameter
 
-}  // namespace netco
+}  // namespace tinyco

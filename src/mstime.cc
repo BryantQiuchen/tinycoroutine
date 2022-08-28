@@ -3,7 +3,7 @@
 
 #include <sys/time.h>
 
-using namespace netco;
+using namespace tinyco;
 
 Time Time::now() {
   struct timeval tv;

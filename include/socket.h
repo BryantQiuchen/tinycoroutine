@@ -13,7 +13,7 @@
 
 struct tcp_info;
 
-namespace netco {
+namespace tinyco {
 
 // Socket类，创建的Socket对象默认都是非阻塞的
 //职责：
@@ -133,4 +133,4 @@ class Socket {
   std::string _ip;
 };
 
-}  // namespace netco
+}  // namespace tinyco

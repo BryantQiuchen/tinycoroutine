@@ -4,7 +4,7 @@
 #include "utils.h"
 #include <stdlib.h>
 
-namespace netco {
+namespace tinyco {
 //参考stl二级空间配置器的设计，union可以节约空间
 struct MemBlockNode {
   union {
@@ -89,4 +89,4 @@ void MemPool<objSize>::FreeAMemBlock(void* block) {
   newNode->next = _freeListHead;
   _freeListHead = newNode;
 }
-}  // namespace netco
+}  // namespace tinyco

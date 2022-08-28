@@ -11,9 +11,9 @@
 
 #define TIMER_DUMMYBUF_SIZE 1024
 
-// timefd配合一个小根堆来实现
+//timefd配合一个小根堆来实现
 //小根堆存放的是时间和协程对象的pair
-namespace netco {
+namespace tinyco {
 class Coroutine;
 class Epoller;
 
@@ -51,7 +51,7 @@ class Timer {
 
   int timeFd_;
 
-  //用于read timefd上的数据
+  //用于读timefd上的数据
   char dummyBuf_[TIMER_DUMMYBUF_SIZE];
 
   //定时器协程集合
@@ -59,4 +59,4 @@ class Timer {
   TimerHeap timerCoHeap_;
 };
 
-}  // namespace netco
+}  // namespace tinyco

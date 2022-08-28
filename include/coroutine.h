@@ -5,7 +5,7 @@
 #include "context.h"
 #include "utils.h"
 
-namespace netco {
+namespace tinyco {
 
 enum coStatus { CO_READY = 0, CO_RUNNING, CO_WAITING, CO_DEAD };
 
@@ -43,4 +43,4 @@ class Coroutine {
   Context ctx_;
 };
 
-}  // namespace netco
+}  // namespace tinyco

@@ -7,7 +7,7 @@
 #include "../include/parameter.h"
 #include "../include/spinlock_guard.h"
 
-using namespace netco;
+using namespace tinyco;
 
 __thread int threadIdx = -1;
 
@@ -172,7 +172,7 @@ void Processor::goNewCo(std::function<void()>&& coFunc, size_t stackSize) {
     SpinlockGuard lock(coPoolLock_);
     pCo = coPool_.new_obj(this, stackSize, std::move(coFunc));
   }
-
+  
   goCo(pCo);
 }
 

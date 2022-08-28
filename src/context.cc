@@ -5,7 +5,7 @@
 
 #include "../include/parameter.h"
 
-using namespace netco;
+using namespace tinyco;
 
 Context::Context(size_t stackSize) : pStack_(nullptr), stackSize_(stackSize) {}
 
@@ -15,7 +15,6 @@ Context::~Context() {
   }
 }
 
-//指定对应的工作函数、处理器以及封装的上下文类,进行运行时封装
 void Context::makeContext(void (*func)(), Processor* pP, Context* pLink) {
   if (nullptr == pStack_) {
     pStack_ = malloc(stackSize_);
@@ -30,7 +29,6 @@ void Context::makeContext(void (*func)(), Processor* pP, Context* pLink) {
 
 void Context::makeCurContext() { ::getcontext(&ctx_); }
 
-//保存当前的上下文环境到参数pOldCtx中,同时将运行上下文切换到调用该函数的Context中
 void Context::swapToMe(Context* pOldCtx) {
   if (nullptr == pOldCtx) {
     //如果为空，就利用当前ctx结构体的存储信息刷新寄存器

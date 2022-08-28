@@ -10,7 +10,7 @@
  * @brief
  * 让用户指定协程运行在某个Processor上，若用户没有指定，则挑选协程数量最少的Processor接管新的协程
  */
-namespace netco {
+namespace tinyco {
 
 class Scheduler {
  protected:
@@ -47,4 +47,4 @@ class Scheduler {
   ProcessorSelector proSelector_;
 };
 
-}  // namespace netco
+}  // namespace tinyco

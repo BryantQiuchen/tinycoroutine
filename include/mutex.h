@@ -6,7 +6,7 @@
 #include <atomic>
 #include <queue>
 
-namespace netco{
+namespace tinyco{
 
     enum muStatus
 	{

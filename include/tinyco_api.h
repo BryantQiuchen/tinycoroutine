@@ -3,7 +3,7 @@
 #include "mstime.h"
 #include "scheduler.h"
 
-namespace netco {
+namespace tinyco {
 ////////////////////协程调用相关接口///////////////////
 
 //并发运行一个协程，协程将运行func函数
@@ -25,4 +25,4 @@ void co_sleep(Time t);
 void sche_join();
 
 //////////////网络相关系统调用使用Socket.h头中的封装//////////
-}  // namespace netco
+}

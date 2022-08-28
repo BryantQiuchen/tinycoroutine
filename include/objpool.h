@@ -13,7 +13,7 @@
  * 从内存池取出所需内存块后，会判断对象是否拥有non-trivial构造函数，
  * 没有的话直接返回，有的话使用placement new构造对象。
  */
-namespace netco {
+namespace tinyco {
 //对象池的实现
 template <class T>
 class ObjPool {
@@ -59,8 +59,8 @@ inline T* ObjPool<T>::new_aux(std::true_type, Args... args) {
 template <class T>
 template <typename... Args>
 inline T* ObjPool<T>::new_aux(std::false_type, Args... args) {
-  //placement new版本，它本质上是对operator new的重载，定义于#include <new>中。它不分配内存，
-	//调用合适的构造函数在ptr所指的地方构造一个对象，之后返回实参指针ptr
+  //placement new版本，它本质上是对operator new的重载，定义于#include <new>中。
+  //它不分配内存，调用合适的构造函数在ptr所指的地方构造一个对象，之后返回实参指针ptr
 	//调用方式 new(p)A();
 	//new (p)A()调用placement new之后，还会在p上调用A::A()，
   //这里的p可以是堆中动态分配的内存，也可以是栈中缓冲
@@ -90,4 +90,4 @@ inline void ObjPool<T>::delete_aux(std::false_type, void* obj) {
   _memPool.FreeAMemBlock(obj);
 }
 
-}  // namespace netco
+}

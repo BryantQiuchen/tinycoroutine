@@ -2,7 +2,7 @@
 #pragma once
 #include <vector>
 
-namespace netco {
+namespace tinyco {
 class Processor;
 
 enum scheduleStrategy {
@@ -10,7 +10,7 @@ enum scheduleStrategy {
   ROUND_ROBIN           //轮流分发
 };
 
-//事件管理器选择器，决定下一个事件应该放入哪个事件管理器中
+//事件管理器选择器，决定下一个事件应该放入哪个processors中
 class ProcessorSelector {
  public:
   ProcessorSelector(std::vector<Processor*>& processors,
@@ -33,4 +33,4 @@ class ProcessorSelector {
   std::vector<Processor*>& processors_;
 };
 
-}  // namespace netco
+}  // namespace tinyco

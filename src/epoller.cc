@@ -1,4 +1,5 @@
 //@author Ryan Xu
+
 #include "../include/epoller.h"
 
 #include <errno.h>
@@ -9,7 +10,7 @@
 #include "../include/coroutine.h"
 #include "../include/parameter.h"
 
-using namespace netco;
+using namespace tinyco;
 
 Epoller::Epoller()
     : epollFd_(-1), activeEpollEvents_(parameter::epollerListFirstSize) {}
@@ -24,9 +25,7 @@ bool Epoller::init() {
   epollFd_ = ::epoll_create1(EPOLL_CLOEXEC);
   /*
   设置为epoll_create1(0)和 epoll_create 一致
-  设置为EPOLL_CLOEXEC，那么由当前进程 fork 出来的任何子进程，
-  其都会关闭其父进程的 epoll 实例所指向的文件描述符，子进程没有
-  访问父进程 epoll 实例的权限，父进程可以正常访问。
+  设置为EPOLL_CLOEXEC，那么由当前进程 fork 出来的任何子进程，子进程不能使用父进程中的fd，父进程的fd可以正常使用
   */
   return isEpollFdUseful();
 }

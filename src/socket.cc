@@ -11,7 +11,7 @@
 
 #include "../include/scheduler.h"
 
-using namespace netco;
+using namespace tinyco;
 
 Socket::~Socket() {
   --(*_pRef);
@@ -99,7 +99,7 @@ Socket Socket::accept() {
   if (ret.isUseful()) {
     return ret;
   }
-  netco::Scheduler::getScheduler()->getProcessor(threadIdx)->waitEvent(
+  tinyco::Scheduler::getScheduler()->getProcessor(threadIdx)->waitEvent(
       _sockfd, EPOLLIN | EPOLLPRI | EPOLLRDHUP | EPOLLHUP);
   auto con(accept_raw());
   if (con.isUseful()) {
@@ -116,7 +116,7 @@ ssize_t Socket::read(void* buf, size_t count) {
   if (ret == -1 && errno == EINTR) {
     return read(buf, count);
   }
-  netco::Scheduler::getScheduler()->getProcessor(threadIdx)->waitEvent(
+  tinyco::Scheduler::getScheduler()->getProcessor(threadIdx)->waitEvent(
       _sockfd, EPOLLIN | EPOLLPRI | EPOLLRDHUP | EPOLLHUP);
   return ::read(_sockfd, buf, count);
 }
@@ -135,7 +135,7 @@ void Socket::connect(const char* ip, int port) {
   if (ret == -1 && errno == EINTR) {
     return connect(ip, port);
   }
-  netco::Scheduler::getScheduler()->getProcessor(threadIdx)->waitEvent(
+  tinyco::Scheduler::getScheduler()->getProcessor(threadIdx)->waitEvent(
       _sockfd, EPOLLOUT);
   return connect(ip, port);
 }
@@ -146,7 +146,7 @@ ssize_t Socket::send(const void* buf, size_t count) {
   if (sendIdx >= count) {
     return count;
   }
-  netco::Scheduler::getScheduler()->getProcessor(threadIdx)->waitEvent(
+  tinyco::Scheduler::getScheduler()->getProcessor(threadIdx)->waitEvent(
       _sockfd, EPOLLOUT);
   return send((char*)buf + sendIdx, count - sendIdx);
 }

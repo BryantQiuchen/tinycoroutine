@@ -9,7 +9,7 @@
 #include "../include/coroutine.h"
 #include "../include/epoller.h"
 
-using namespace netco;
+using namespace tinyco;
 
 Timer::Timer() : timeFd_(-1) {}
 
@@ -70,8 +70,7 @@ bool Timer::resetTimeOfTimefd(Time time) {
  * 结构体itimerspec就是timerfd要设置的超时结构体，
  * 它的成员it_value表示定时器第一次超时时间，
  * it_interval表示之后的超时时间即每隔多长时间超时
- * struct itimerspec
-  {
+ * struct itimerspec {
     struct timespec it_interval;
     struct timespec it_value;
   };
