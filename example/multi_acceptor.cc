@@ -3,36 +3,36 @@
 #include <iostream>
 
 #include "../include/mutex.h"
-#include "../include/netco_api.h"
+#include "../include/tinyco_api.h"
 #include "../include/processor.h"
 #include "../include/socket.h"
 
-using namespace netco;
+using namespace tinyco;
 
-// netco http response with one acceptor test
+// tinyco http response with one acceptor test
 //只有一个 acceptor 的服务
 void single_acceptor_server_test() {
-  netco::co_go([] {
-    netco::Socket listener;
+  tinyco::co_go([] {
+    tinyco::Socket listener;
     if (listener.isUseful()) {
       listener.setTcpNoDelay(true);
       listener.setReuseAddr(true);
       listener.setReusePort(true);
-      if (listener.bind(8099) < 0) {
+      if (listener.bind(nullptr, 8099) < 0) {
         return;
       }
       listener.listen();
     }
     while (1) {
-      netco::Socket* conn = new netco::Socket(listener.accept());
+      tinyco::Socket* conn = new tinyco::Socket(listener.accept());
       conn->setTcpNoDelay(true);
-      netco::co_go([conn] {
+      tinyco::co_go([conn] {
         std::vector<char> buf;
         buf.resize(2048);
         while (1) {
           auto readNum = conn->read((void*)&(buf[0]), buf.size());
           std::string ok =
-              "HTTP/1.0 200 OK\r\nServer: netco/0.1.0\r\nContent-Type: "
+              "HTTP/1.0 200 OK\r\nServer: tinyco/0.1.0\r\nContent-Type: "
               "text/html\r\n\r\n";
           if (readNum < 0) {
             break;
@@ -43,36 +43,36 @@ void single_acceptor_server_test() {
             break;
           }
         }
-        netco::co_sleep(100);  //需要等一下，否则没发送完毕就关闭了
+        tinyco::co_sleep(100);  //需要等一下，否则没发送完毕就关闭了
         delete conn;
       });
     }
   });
 }
 
-// netco http response with multi acceptor test
+// tinyco http response with multi acceptor test
 //每条线程一个acceptor的服务
 void multi_acceptor_server_test() {
   auto tCnt = ::get_nprocs_conf();
   for (int i = 0; i < tCnt; ++i) {
-    netco::co_go(
+    tinyco::co_go(
         [] {
-          netco::Socket listener;
+          tinyco::Socket listener;
           if (listener.isUseful()) {
             listener.setTcpNoDelay(true);
             listener.setReuseAddr(true);
             listener.setReusePort(true);
-            if (listener.bind(8099) < 0) {
+            if (listener.bind(nullptr, 8099) < 0) {
               return;
             }
             listener.listen();
           }
           while (1) {
-            netco::Socket* conn = new netco::Socket(listener.accept());
+            tinyco::Socket* conn = new tinyco::Socket(listener.accept());
             conn->setTcpNoDelay(true);
-            netco::co_go([conn] {
+            tinyco::co_go([conn] {
               std::string hello(
-                  "HTTP/1.0 200 OK\r\nServer: netco/0.1.0\r\nContent-Length: "
+                  "HTTP/1.0 200 OK\r\nServer: tinyco/0.1.0\r\nContent-Length: "
                   "72\r\nContent-Type: "
                   "text/html\r\n\r\n<HTML><TITLE>hello</"
                   "TITLE>\r\n<BODY><P>hello word!\r\n</BODY></HTML>\r\n");
@@ -81,7 +81,7 @@ void multi_acceptor_server_test() {
               char buf[1024];
               if (conn->read((void*)buf, 1024) > 0) {
                 conn->send(hello.c_str(), hello.size());
-                netco::co_sleep(50);  //需要等一下，否则没发送完毕就关闭了
+                tinyco::co_sleep(50);  //需要等一下，否则没发送完毕就关闭了
               }
               delete conn;
             });
@@ -92,7 +92,7 @@ void multi_acceptor_server_test() {
 }
 int main() {
   multi_acceptor_server_test();
-  netco::sche_join();
+  tinyco::sche_join();
   std::cout << "end" << std::endl;
   return 0;
 }

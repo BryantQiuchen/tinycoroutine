@@ -58,13 +58,17 @@ std::string Socket::getSocketOptString() const {
   return std::string(buf);
 }
 
-int Socket::bind(int port) {
+int Socket::bind(const char* ip, int port) {
   _port = port;
   struct sockaddr_in serv;
   memset(&serv, 0, sizeof(struct sockaddr_in));
   serv.sin_family = AF_INET;
   serv.sin_port = htons(port);
-  serv.sin_addr.s_addr = htonl(INADDR_ANY);
+  if (nullptr == ip) {
+    serv.sin_addr.s_addr = htonl(INADDR_ANY);
+  } else {
+    serv.sin_addr.s_addr = inet_addr(ip);
+  }
   int ret = ::bind(_sockfd, (struct sockaddr*)&serv, sizeof(serv));
   return ret;
 }
@@ -113,6 +117,7 @@ ssize_t Socket::read(void* buf, size_t count) {
   if (ret >= 0) {
     return ret;
   }
+  //接收缓冲区没有数据，返回-1
   if (ret == -1 && errno == EINTR) {
     return read(buf, count);
   }

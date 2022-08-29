@@ -36,7 +36,7 @@ class Scheduler {
   //初始化Scheduler，threadCnt为开启线程的数目
   bool startScheduler(int threadCnt);
 
-  //日志管理器实例
+  //管理器实例
   static Scheduler* pScher_;
 
   //用于保护的锁，为了服务器执行效率，原则上不允许长久占有此锁

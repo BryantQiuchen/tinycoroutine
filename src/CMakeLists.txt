@@ -1,4 +1,4 @@
-add_library(netco SHARED
+add_library(tinyco SHARED
     context.cc
     coroutine.cc
     epoller.cc
@@ -10,4 +10,6 @@ add_library(netco SHARED
     socket.cc
     scheduler.cc
     netco_api.cc
+    tcp_server.cc
+    tcp_client.cc
     )

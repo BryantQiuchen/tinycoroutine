@@ -15,8 +15,7 @@ struct tcp_info;
 
 namespace tinyco {
 
-// Socket类，创建的Socket对象默认都是非阻塞的
-//职责：
+//Socket类，创建的Socket对象默认都是非阻塞的，职责：
 // 1、提供fd操作的相关API
 // 2、管理fd的生命周期
 //其中有引用计数，若某一fd没人用了就会close
@@ -61,7 +60,7 @@ class Socket {
   bool isUseful() { return _sockfd >= 0; }
 
   //绑定ip和port到当前socket
-  int bind(int port);
+  int bind(const char* ip, int port);
 
   //监听Socket
   int listen();
